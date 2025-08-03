@@ -1,0 +1,9 @@
+{
+  "conf.mhud.armor_hud": "Armor hud",
+  "conf.mhud.potion_hud": "Potion timer",
+  "key.mhud.config_screen": "Open config screen",
+  "conf.mhud.close": "Close",
+  "category.mhud.keys": "Mhud",
+  "conf.mhud.enabled": "Enabled",
+  "conf.mhud.disabled": "Disabled"
+}
