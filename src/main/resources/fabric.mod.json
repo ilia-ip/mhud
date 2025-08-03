@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "mhud",
+	"version": "${version}",
+	"name": "mhud",
+	"description": "lightweight custom hud mod",
+	"authors": [
+		"ilia_ip"
+	],
+	"license": "CC0-1.0",
+	"icon": "assets/mhud/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ilia_ip.mhud.Mhud"
+		]
+	},
+	"mixins": [
+		"mhud.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
