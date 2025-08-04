@@ -5,5 +5,7 @@
   "conf.mhud.close": "Close",
   "category.mhud.keys": "Mhud",
   "conf.mhud.enabled": "Enabled",
-  "conf.mhud.disabled": "Disabled"
+  "conf.mhud.disabled": "Disabled",
+  "conf.mhud.crosshairInd_hud": "Crosshair Indicator",
+  "conf.mhud.crosshair3dp_hud": "Crosshair in 3d person view"
 }

@@ -43,15 +43,39 @@ public class ConfigScreen extends Screen {
                 }
         ).dimensions(x, 150, 200, 20).build();
 
+        TextWidget crosshair3d_text = new TextWidget(x, 180, 200, 20, Text.translatable("conf.mhud.crosshair3dp_hud"), textRenderer);
+        ButtonWidget crosshair3d_hud = ButtonWidget.builder(
+                Mhud.CONFIG.Crosshair3dPerson ? ENABLED : DISABLED,
+                (widget) -> {
+                    Mhud.CONFIG.Crosshair3dPerson = !Mhud.CONFIG.Crosshair3dPerson;
+                    widget.setMessage(Mhud.CONFIG.Crosshair3dPerson ? ENABLED : DISABLED);
+                    Mhud.CONFIG.save();
+                }
+        ).dimensions(x, 200, 200, 20).build();
+
+        TextWidget crosshairInd_text = new TextWidget(x, 230, 200, 20, Text.translatable("conf.mhud.crosshairInd_hud"), textRenderer);
+        ButtonWidget crosshairInd_hud = ButtonWidget.builder(
+                Mhud.CONFIG.CrosshairIndicator ? ENABLED : DISABLED,
+                (widget) -> {
+                    Mhud.CONFIG.CrosshairIndicator = !Mhud.CONFIG.CrosshairIndicator;
+                    widget.setMessage(Mhud.CONFIG.CrosshairIndicator ? ENABLED : DISABLED);
+                    Mhud.CONFIG.save();
+                }
+        ).dimensions(x, 250, 200, 20).build();
+
         ButtonWidget close = ButtonWidget.builder(
                 Text.translatable("conf.mhud.close"),
                 (widget) -> {
                     MinecraftClient.getInstance().setScreen(null);
                 }
-        ).dimensions(x, 180, 200, 20).build();
+        ).dimensions(x, 280, 200, 20).build();
 
         addDrawableChild(armor_text);
         addDrawableChild(potion_text);
+        addDrawableChild(crosshair3d_text);
+        addDrawableChild(crosshairInd_text);
+        addDrawableChild(crosshair3d_hud);
+        addDrawableChild(crosshairInd_hud);
         addDrawableChild(armor_hud);
         addDrawableChild(potion_hud);
         addDrawableChild(close);

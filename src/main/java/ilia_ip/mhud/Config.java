@@ -11,6 +11,8 @@ import java.util.Objects;
 public class Config {
     public boolean ArmorHudEnabled = true;
     public boolean PotionHudEnabled = true;
+    public boolean Crosshair3dPerson = true;
+    public boolean CrosshairIndicator = true;
 
     public void read() {
         File cfg_file = new File("config/mhud");
@@ -19,9 +21,12 @@ public class Config {
             String cfg = FileUtils.readFileToString(cfg_file, "UTF-8");
 
             String[] parts = cfg.split("\\|");
+            if (parts.length < 4) return;
 
             ArmorHudEnabled = Objects.equals(parts[0], "true");
             PotionHudEnabled = Objects.equals(parts[1], "true");
+            Crosshair3dPerson = Objects.equals(parts[2], "true");
+            CrosshairIndicator = Objects.equals(parts[3], "true");
 
         } catch (IOException e) {
             LogUtils.getLogger().error("Error reading config file");
@@ -29,7 +34,7 @@ public class Config {
     }
 
     public void save() {
-        String cfg = Mhud.CONFIG.ArmorHudEnabled + "|" + Mhud.CONFIG.PotionHudEnabled;
+        String cfg = Mhud.CONFIG.ArmorHudEnabled + "|" + Mhud.CONFIG.PotionHudEnabled + "|" + Mhud.CONFIG.Crosshair3dPerson + "|" + Mhud.CONFIG.CrosshairIndicator;
 
         File cfg_file = new File("config/mhud");
 
