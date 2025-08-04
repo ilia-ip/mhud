@@ -63,12 +63,32 @@ public class ConfigScreen extends Screen {
                 }
         ).dimensions(x, 250, 200, 20).build();
 
+        TextWidget small_utils_text = new TextWidget(x, 280, 200, 20, Text.translatable("conf.mhud.small_utils_hud"), textRenderer);
+        ButtonWidget small_utils_hud = ButtonWidget.builder(
+                Mhud.CONFIG.SmallUtils ? ENABLED : DISABLED,
+                (widget) -> {
+                    Mhud.CONFIG.SmallUtils = !Mhud.CONFIG.SmallUtils;
+                    widget.setMessage(Mhud.CONFIG.SmallUtils ? ENABLED : DISABLED);
+                    Mhud.CONFIG.save();
+                }
+        ).dimensions(x, 300, 200, 20).build();
+
+        TextWidget side_shield_text = new TextWidget(x, 330, 200, 20, Text.translatable("conf.mhud.side_shield_hud"), textRenderer);
+        ButtonWidget side_shield_hud = ButtonWidget.builder(
+                Mhud.CONFIG.SideShield ? ENABLED : DISABLED,
+                (widget) -> {
+                    Mhud.CONFIG.SideShield = !Mhud.CONFIG.SideShield;
+                    widget.setMessage(Mhud.CONFIG.SideShield ? ENABLED : DISABLED);
+                    Mhud.CONFIG.save();
+                }
+        ).dimensions(x, 350, 200, 20).build();
+
         ButtonWidget close = ButtonWidget.builder(
                 Text.translatable("conf.mhud.close"),
                 (widget) -> {
                     MinecraftClient.getInstance().setScreen(null);
                 }
-        ).dimensions(x, 280, 200, 20).build();
+        ).dimensions(x, 380, 200, 20).build();
 
         addDrawableChild(armor_text);
         addDrawableChild(potion_text);
@@ -76,6 +96,10 @@ public class ConfigScreen extends Screen {
         addDrawableChild(crosshairInd_text);
         addDrawableChild(crosshair3d_hud);
         addDrawableChild(crosshairInd_hud);
+        addDrawableChild(side_shield_hud);
+        addDrawableChild(side_shield_text);
+        addDrawableChild(small_utils_hud);
+        addDrawableChild(small_utils_text);
         addDrawableChild(armor_hud);
         addDrawableChild(potion_hud);
         addDrawableChild(close);
