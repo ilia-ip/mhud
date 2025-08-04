@@ -7,8 +7,10 @@
   "conf.mhud.enabled": "Enabled",
   "conf.mhud.disabled": "Disabled",
   "conf.mhud.crosshairInd_hud": "Crosshair Indicator",
-  "conf.mhud.crosshair3dp_hud": "Crosshair in 3d person view",
+  "conf.mhud.crosshair3dp_hud": "Crosshair in 3d Person view",
   "conf.mhud.small_utils_hud": "Small utils",
   "conf.mhud.side_shield_hud": "Side shield",
-  "conf.mhud.nameplate_3dp_hud": "Nameplate in 3d Person View"
+  "conf.mhud.nameplate_3dp_hud": "Nameplate in 3d Person view",
+  "conf.mhud.no_fog": "No Fog",
+  "conf.mhud.fullbright": "FullBright"
 }

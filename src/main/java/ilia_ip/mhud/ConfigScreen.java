@@ -1,5 +1,6 @@
 package ilia_ip.mhud;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -8,6 +9,7 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
+import net.minecraft.client.render.fog.FogRenderer;
 import net.minecraft.text.Text;
 
 public class ConfigScreen extends Screen {
@@ -22,9 +24,13 @@ public class ConfigScreen extends Screen {
     @Override
     protected void init() {
         int x = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2 - 100;
+        int y = 50;
+
+        int text_offset = -20;
+        int offset = 50;
 
         addDrawableChild(
-                new TextWidget(x, 80, 200, 20, Text.translatable("conf.mhud.armor_hud"), textRenderer)
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.armor_hud"), textRenderer)
         );
         addDrawableChild(
                 ButtonWidget.builder(
@@ -34,11 +40,13 @@ public class ConfigScreen extends Screen {
                     widget.setMessage(Mhud.CONFIG.ArmorHudEnabled ? ENABLED : DISABLED);
                     Mhud.CONFIG.save();
                 }
-            ).dimensions(x, 100, 200, 20).build()
+            ).dimensions(x, y, 200, 20).build()
         );
 
+        y+=offset;
+
         addDrawableChild(
-                new TextWidget(x, 130, 200, 20, Text.translatable("conf.mhud.potion_hud"), textRenderer)
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.potion_hud"), textRenderer)
         );
         addDrawableChild(
                 ButtonWidget.builder(
@@ -48,11 +56,13 @@ public class ConfigScreen extends Screen {
                     widget.setMessage(Mhud.CONFIG.PotionHudEnabled ? ENABLED : DISABLED);
                     Mhud.CONFIG.save();
                 }
-            ).dimensions(x, 150, 200, 20).build()
+            ).dimensions(x, y, 200, 20).build()
         );
 
+        y+=offset;
+
         addDrawableChild(
-                new TextWidget(x, 180, 200, 20, Text.translatable("conf.mhud.crosshair3dp_hud"), textRenderer)
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.crosshair3dp_hud"), textRenderer)
         );
         addDrawableChild(
                 ButtonWidget.builder(
@@ -62,11 +72,13 @@ public class ConfigScreen extends Screen {
                     widget.setMessage(Mhud.CONFIG.Crosshair3dPerson ? ENABLED : DISABLED);
                     Mhud.CONFIG.save();
                 }
-            ).dimensions(x, 200, 200, 20).build()
+            ).dimensions(x, y, 200, 20).build()
         );
 
+        y+=offset;
+
         addDrawableChild(
-                new TextWidget(x, 230, 200, 20, Text.translatable("conf.mhud.crosshairInd_hud"), textRenderer)
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.crosshairInd_hud"), textRenderer)
         );
         addDrawableChild(
                 ButtonWidget.builder(
@@ -76,11 +88,13 @@ public class ConfigScreen extends Screen {
                     widget.setMessage(Mhud.CONFIG.CrosshairIndicator ? ENABLED : DISABLED);
                     Mhud.CONFIG.save();
                 }
-            ).dimensions(x, 250, 200, 20).build()
+            ).dimensions(x, y, 200, 20).build()
         );
 
+        y+=offset;
+
         addDrawableChild(
-                new TextWidget(x, 280, 200, 20, Text.translatable("conf.mhud.small_utils_hud"), textRenderer)
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.small_utils_hud"), textRenderer)
         );
         addDrawableChild(
                 ButtonWidget.builder(
@@ -90,11 +104,13 @@ public class ConfigScreen extends Screen {
                     widget.setMessage(Mhud.CONFIG.SmallUtils ? ENABLED : DISABLED);
                     Mhud.CONFIG.save();
                 }
-            ).dimensions(x, 300, 200, 20).build()
+            ).dimensions(x, y, 200, 20).build()
         );
 
+        y+=offset;
+
         addDrawableChild(
-                new TextWidget(x, 330, 200, 20, Text.translatable("conf.mhud.side_shield_hud"), textRenderer)
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.side_shield_hud"), textRenderer)
         );
         addDrawableChild(
                 ButtonWidget.builder(
@@ -104,11 +120,13 @@ public class ConfigScreen extends Screen {
                     widget.setMessage(Mhud.CONFIG.SideShield ? ENABLED : DISABLED);
                     Mhud.CONFIG.save();
                 }
-            ).dimensions(x, 350, 200, 20).build()
+            ).dimensions(x, y, 200, 20).build()
         );
 
+        y+=offset;
+
         addDrawableChild(
-                new TextWidget(x, 380, 200, 20, Text.translatable("conf.mhud.nameplate_3dp_hud"), textRenderer)
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.nameplate_3dp_hud"), textRenderer)
         );
         addDrawableChild(
             ButtonWidget.builder(
@@ -118,15 +136,39 @@ public class ConfigScreen extends Screen {
                     widget.setMessage(Mhud.CONFIG.Nameplate3dPerson ? ENABLED : DISABLED);
                     Mhud.CONFIG.save();
                 }
-            ).dimensions(x, 400, 200, 20).build()
+            ).dimensions(x, y, 200, 20).build()
         );
 
-        addDrawableChild(ButtonWidget.builder(
-                Text.translatable("conf.mhud.close"),
-                (widget) -> {
-                    MinecraftClient.getInstance().setScreen(null);
-                }
-            ).dimensions(x, 430, 200, 20).build()
+        y+=offset;
+
+        addDrawableChild(
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.no_fog"), textRenderer)
+        );
+        addDrawableChild(
+                ButtonWidget.builder(
+                        Mhud.CONFIG.NoFog ? ENABLED : DISABLED,
+                        (widget) -> {
+                            Mhud.CONFIG.NoFog = !Mhud.CONFIG.NoFog;
+                            widget.setMessage(Mhud.CONFIG.NoFog ? ENABLED : DISABLED);
+                            Mhud.CONFIG.save();
+                        }
+                ).dimensions(x, y, 200, 20).build()
+        );
+
+        y+=offset;
+
+        addDrawableChild(
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.fullbright"), textRenderer)
+        );
+        addDrawableChild(
+                ButtonWidget.builder(
+                        Mhud.CONFIG.Fullbright ? ENABLED : DISABLED,
+                        (widget) -> {
+                            Mhud.CONFIG.Fullbright = !Mhud.CONFIG.Fullbright;
+                            widget.setMessage(Mhud.CONFIG.Fullbright ? ENABLED : DISABLED);
+                            Mhud.CONFIG.save();
+                        }
+                ).dimensions(x, y, 200, 20).build()
         );
     }
 }

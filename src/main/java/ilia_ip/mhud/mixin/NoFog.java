@@ -1,41 +1,28 @@
 package ilia_ip.mhud.mixin;
 
-import com.mojang.blaze3d.buffers.GpuBuffer;
-import com.mojang.blaze3d.buffers.Std140Builder;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import ilia_ip.mhud.Mhud;
-import net.minecraft.block.enums.CameraSubmersionType;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.render.fog.FogData;
-import net.minecraft.client.render.fog.FogModifier;
 import net.minecraft.client.render.fog.FogRenderer;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
 import org.joml.Vector4f;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import java.nio.ByteBuffer;
-
-@Mixin(value = FogRenderer.class, priority = 1300)
+@Mixin(FogRenderer.class)
 public class NoFog {
-
-    @Shadow
-    @Final
-    private static List<FogEnvironment> FOG_ENVIRONMENTS;
-
-    @Inject(method = "setupFog", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/fog/FogData;renderDistanceEnd:F", ordinal = 0, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
-    public void postFogSetup(Camera camera, int renderDistance, boolean thickFog, DeltaTracker deltaTracker, float f, ClientLevel level, CallbackInfoReturnable<Vector4f> cir, float g, Vector4f vector4f, float h, FogType fogType, Entity entity, FogData fogData) {
-        for (FogEnvironment fogEnvironment : FOG_ENVIRONMENTS) {
-            if (fogEnvironment.isApplicable(fogType, entity) && fogEnvironment instanceof FogEnvironmentExtended fogEnvironmentExtended) {
-                fogEnvironmentExtended.sodium_extra$applyFogSettings(fogType, fogData, entity, camera.getBlockPosition(), level, h, deltaTracker);
-                break;
-            }
-        }
+    @ModifyVariable(method = "applyFog(Lnet/minecraft/client/render/Camera;IZLnet/minecraft/client/render/RenderTickCounter;FLnet/minecraft/client/world/ClientWorld;)Lorg/joml/Vector4f;", at =
+    @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/MappableRingBuffer;getBlocking()Lcom/mojang/blaze3d/buffers/GpuBuffer;"))
+    private FogData getFogBuffer(FogData value) {
+        if (Mhud.CONFIG.NoFog) value.renderDistanceStart = value.renderDistanceEnd = value.environmentalStart = value.environmentalEnd = value.skyEnd = value.cloudEnd =
+                MinecraftClient.getInstance().options.getClampedViewDistance() * 32;
+        return value;
     }
 }

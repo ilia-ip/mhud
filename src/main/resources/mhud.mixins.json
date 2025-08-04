@@ -11,8 +11,10 @@
   },
   "client": [
     "Crosshair",
+    "Fullbright",
     "HeldItem",
     "NamePlateRenderer",
+    "NoFog",
     "PotionHud"
   ]
 }
