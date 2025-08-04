@@ -83,12 +83,22 @@ public class ConfigScreen extends Screen {
                 }
         ).dimensions(x, 350, 200, 20).build();
 
+        TextWidget nameplate3d_text = new TextWidget(x, 380, 200, 20, Text.translatable("conf.mhud.nameplate_3dp_hud"), textRenderer);
+        ButtonWidget nameplate3d_hud = ButtonWidget.builder(
+                Mhud.CONFIG.Nameplate3dPerson ? ENABLED : DISABLED,
+                (widget) -> {
+                    Mhud.CONFIG.Nameplate3dPerson = !Mhud.CONFIG.Nameplate3dPerson;
+                    widget.setMessage(Mhud.CONFIG.Nameplate3dPerson ? ENABLED : DISABLED);
+                    Mhud.CONFIG.save();
+                }
+        ).dimensions(x, 400, 200, 20).build();
+
         ButtonWidget close = ButtonWidget.builder(
                 Text.translatable("conf.mhud.close"),
                 (widget) -> {
                     MinecraftClient.getInstance().setScreen(null);
                 }
-        ).dimensions(x, 380, 200, 20).build();
+        ).dimensions(x, 430, 200, 20).build();
 
         addDrawableChild(armor_text);
         addDrawableChild(potion_text);
@@ -99,6 +109,8 @@ public class ConfigScreen extends Screen {
         addDrawableChild(side_shield_hud);
         addDrawableChild(side_shield_text);
         addDrawableChild(small_utils_hud);
+        addDrawableChild(nameplate3d_hud);
+        addDrawableChild(nameplate3d_text);
         addDrawableChild(small_utils_text);
         addDrawableChild(armor_hud);
         addDrawableChild(potion_hud);

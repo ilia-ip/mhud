@@ -9,5 +9,6 @@
   "conf.mhud.crosshairInd_hud": "Crosshair Indicator",
   "conf.mhud.crosshair3dp_hud": "Crosshair in 3d person view",
   "conf.mhud.small_utils_hud": "Small utils",
-  "conf.mhud.side_shield_hud": "Side shield"
+  "conf.mhud.side_shield_hud": "Side shield",
+  "conf.mhud.nameplate_3dp_hud": "Nameplate in 3d Person View"
 }

@@ -12,6 +12,7 @@
   "client": [
     "Crosshair",
     "HeldItem",
+    "NamePlateRenderer",
     "PotionHud"
   ]
 }

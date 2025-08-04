@@ -15,6 +15,7 @@ public class Config {
     public boolean CrosshairIndicator = true;
     public boolean SmallUtils = true;
     public boolean SideShield = true;
+    public boolean Nameplate3dPerson = true;
 
     public void read() {
         File cfg_file = new File("config/mhud");
@@ -23,7 +24,7 @@ public class Config {
             String cfg = FileUtils.readFileToString(cfg_file, "UTF-8");
 
             String[] parts = cfg.split("\\|");
-            if (parts.length < 6) return;
+            if (parts.length < 7) return;
 
             ArmorHudEnabled = Objects.equals(parts[0], "true");
             PotionHudEnabled = Objects.equals(parts[1], "true");
@@ -31,6 +32,7 @@ public class Config {
             CrosshairIndicator = Objects.equals(parts[3], "true");
             SmallUtils = Objects.equals(parts[4], "true");
             SideShield = Objects.equals(parts[5], "true");
+            Nameplate3dPerson = Objects.equals(parts[6], "true");
 
         } catch (IOException e) {
             LogUtils.getLogger().error("Error reading config file");
@@ -38,7 +40,13 @@ public class Config {
     }
 
     public void save() {
-        String cfg = Mhud.CONFIG.ArmorHudEnabled + "|" + Mhud.CONFIG.PotionHudEnabled + "|" + Mhud.CONFIG.Crosshair3dPerson + "|" + Mhud.CONFIG.CrosshairIndicator + "|" + Mhud.CONFIG.SmallUtils + "|" + Mhud.CONFIG.SideShield;
+        String cfg = Mhud.CONFIG.ArmorHudEnabled + "|"
+                + Mhud.CONFIG.PotionHudEnabled + "|"
+                + Mhud.CONFIG.Crosshair3dPerson + "|"
+                + Mhud.CONFIG.CrosshairIndicator + "|"
+                + Mhud.CONFIG.SmallUtils + "|"
+                + Mhud.CONFIG.SideShield + "|"
+                + Mhud.CONFIG.Nameplate3dPerson;
 
         File cfg_file = new File("config/mhud");
 
