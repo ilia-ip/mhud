@@ -170,5 +170,22 @@ public class ConfigScreen extends Screen {
                         }
                 ).dimensions(x, y, 200, 20).build()
         );
+
+        y+=offset;
+
+        addDrawableChild(
+                new TextWidget(x, y+text_offset, 200, 20, Text.translatable("conf.mhud.lowfire"), textRenderer)
+        );
+        addDrawableChild(
+                ButtonWidget.builder(
+                        Mhud.CONFIG.LowFire ? ENABLED : DISABLED,
+                        (widget) -> {
+                            Mhud.CONFIG.LowFire = !Mhud.CONFIG.LowFire;
+                            widget.setMessage(Mhud.CONFIG.LowFire ? ENABLED : DISABLED);
+                            Mhud.CONFIG.save();
+                        }
+                ).dimensions(x, y, 200, 20).build()
+        );
+
     }
 }

@@ -12,5 +12,6 @@
   "conf.mhud.side_shield_hud": "Side shield",
   "conf.mhud.nameplate_3dp_hud": "Nameplate in 3d Person view",
   "conf.mhud.no_fog": "No Fog",
-  "conf.mhud.fullbright": "FullBright"
+  "conf.mhud.fullbright": "FullBright",
+  "conf.mhud.lowfire": "LowFire"
 }

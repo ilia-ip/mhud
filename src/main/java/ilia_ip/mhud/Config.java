@@ -19,6 +19,7 @@ public class Config {
     public boolean Nameplate3dPerson = true;
     public boolean NoFog = true;
     public boolean Fullbright = true;
+    public boolean LowFire = true;
 
     public void read() {
         File cfg_file = new File("config/mhud");
@@ -38,6 +39,7 @@ public class Config {
             Nameplate3dPerson = Objects.equals(parts[6], "true");
             NoFog = Objects.equals(parts[7], "true");
             Fullbright = Objects.equals(parts[8], "true");
+            LowFire = Objects.equals(parts[8], "true");
 
         } catch (IOException e) {
             LogUtils.getLogger().error("Error reading config file");
@@ -53,7 +55,8 @@ public class Config {
                 + Mhud.CONFIG.SideShield + "|"
                 + Mhud.CONFIG.Nameplate3dPerson + "|"
                 + Mhud.CONFIG.NoFog + "|"
-                + Mhud.CONFIG.Fullbright;
+                + Mhud.CONFIG.Fullbright + "|"
+                + Mhud.CONFIG.LowFire;
 
         File cfg_file = new File("config/mhud");
 

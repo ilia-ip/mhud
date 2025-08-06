@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.gui.hud.InGameOverlayRenderer;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
@@ -44,5 +45,6 @@ public class Mhud implements ModInitializer {
 		});
 
 		HudElementRegistry.addFirst(Identifier.of(MOD_ID, "armor_hud"), new ArmorHud());
+		//HudElementRegistry.addFirst(Identifier.of(MOD_ID, "coord_hud"), new CoordinatesHud());
 	}
 }
