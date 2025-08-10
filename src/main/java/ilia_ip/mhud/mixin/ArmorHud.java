@@ -1,26 +1,36 @@
-package ilia_ip.mhud;
+package ilia_ip.mhud.mixin;
 
-import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
+import ilia_ip.mhud.Mhud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Mixin(InGameHud.class)
+public class ArmorHud {
 
-public class ArmorHud implements HudElement {
-    public static final Identifier HOTBAR_TEXTURE = Identifier.ofVanilla("hud/hotbar");
-    public static final int HOTBAR_SIZE = 22;
+    @Unique
+    private static final Identifier HOTBAR_TEXTURE = Identifier.ofVanilla("hud/hotbar");
 
-    @Override
-    public void render(DrawContext drawContext, RenderTickCounter renderTickCounter) {
-        if (!Mhud.CONFIG.ArmorHudEnabled) return;
+    @Unique
+    private static final int HOTBAR_SIZE = 22;
+
+    @Inject(at = @At("HEAD"), method = "renderHotbar")
+    private void renderArmorHud(DrawContext drawContext, RenderTickCounter tickCounter, CallbackInfo ci) {
+        if (!Mhud.enabled("armor_hud")) return;
 
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
 
@@ -47,7 +57,6 @@ public class ArmorHud implements HudElement {
         int y = drawContext.getScaledWindowHeight() - 22;
         int x = x_start - 20 * armor.size() - 2;
 
-        // addasdsadasdasd it took soooo long
         drawContext.enableScissor(x, y, x_start, y + 22);
         drawContext.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HOTBAR_TEXTURE, x, y, 182, 22);
         drawContext.disableScissor();
@@ -63,4 +72,5 @@ public class ArmorHud implements HudElement {
             x += 20;
         }
     }
+
 }

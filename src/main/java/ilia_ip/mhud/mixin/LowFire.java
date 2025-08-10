@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LowFire {
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lorg/joml/Quaternionfc;)V"), method = "renderFireOverlay")
     private static void renderFireOverlay(MatrixStack matrices, VertexConsumerProvider vertexConsumers, CallbackInfo ci) {
-        if (!Mhud.CONFIG.LowFire) return;
+        if (!Mhud.enabled("low_fire")) return;
         matrices.translate(0, -0.35 , 0);
     }
 }

@@ -1,9 +1,0 @@
-{
-  "conf.mhud.armor_hud": "Отображение брони",
-  "conf.mhud.potion_hud": "Длительность эффектов",
-  "key.mhud.config_screen": "Открыть экран конфигурации",
-  "conf.mhud.close": "Закрыть",
-  "category.mhud.keys": "Mhud",
-  "conf.mhud.enabled": "Включено",
-  "conf.mhud.disabled": "Выключено"
-}

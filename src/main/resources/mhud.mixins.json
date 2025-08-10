@@ -10,9 +10,10 @@
     "requireAnnotations": true
   },
   "client": [
-    "Crosshair",
+    "ArmorHud",
+    "CrosshairTweaks",
     "Fullbright",
-    "HeldItem",
+    "ItemTweaks",
     "LowFire",
     "NamePlateRenderer",
     "NoFog",

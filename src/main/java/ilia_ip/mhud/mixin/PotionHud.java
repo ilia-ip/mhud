@@ -1,7 +1,6 @@
 package ilia_ip.mhud.mixin;
 
 import com.google.common.collect.Ordering;
-import ilia_ip.mhud.Config;
 import ilia_ip.mhud.Mhud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
@@ -52,7 +51,7 @@ public class PotionHud {
                 int x, y;
 
                 if (statusEffectInstance.shouldShowIcon()) {
-                    if (Mhud.CONFIG.PotionHudEnabled) {
+                    if (Mhud.enabled("potion_hud")) {
                         x = 1;
                         y = context.getScaledWindowHeight() / 3;
 
@@ -103,7 +102,7 @@ public class PotionHud {
 
                     context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, InGameHud.getEffectTexture(registryEntry), x + 3, y + 3, 18, 18, ColorHelper.getWhite(f));
 
-                    if (!statusEffectInstance.isAmbient() || !Mhud.CONFIG.PotionHudEnabled) context.drawText(client.textRenderer, String.valueOf(statusEffectInstance.getDuration()/20), x+4, y+13, color, true);
+                    if (!statusEffectInstance.isAmbient() || !Mhud.enabled("potion_hud")) context.drawText(client.textRenderer, String.valueOf(statusEffectInstance.getDuration()/20), x+4, y+13, color, true);
                 }
             }
 

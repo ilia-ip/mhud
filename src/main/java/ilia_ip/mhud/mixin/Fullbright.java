@@ -18,12 +18,12 @@ public class Fullbright {
 
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Ljava/lang/Double;floatValue()F", ordinal = 1))
     private float updateGamma(Double instance) {
-        if (Mhud.CONFIG.Fullbright) return 1250;
+        if (Mhud.enabled("full_bright")) return 1250;
         return instance.floatValue();
     }
 
     @WrapOperation(method = "update", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/buffers/Std140Builder;putFloat(F)Lcom/mojang/blaze3d/buffers/Std140Builder;", ordinal = 3))
     private Std140Builder putFloat(Std140Builder instance, float value, Operation<Std140Builder> original) {
-        return original.call(instance, Mhud.CONFIG.Fullbright ? 1F : value);
+        return original.call(instance, Mhud.enabled("full_bright") ? 1F : value);
     }
 }
