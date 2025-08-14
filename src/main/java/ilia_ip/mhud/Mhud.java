@@ -34,7 +34,6 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class Mhud implements ModInitializer {
-	public static final String MOD_ID = "mhud";
 	public static final Properties CONFIG = new Properties();
 
 	public static void readCfg() {
@@ -50,6 +49,7 @@ public class Mhud implements ModInitializer {
 		CONFIG.setProperty("full_bright", "false");
 		CONFIG.setProperty("potion_hud", "false");
 		CONFIG.setProperty("less_particles", "false");
+		CONFIG.setProperty("better_subtitles", "false");
 
 		try (FileReader cfg_file = new FileReader("config/mhud.properties")) {
 			CONFIG.load(cfg_file);
