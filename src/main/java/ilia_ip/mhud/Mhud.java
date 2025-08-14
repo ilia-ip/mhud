@@ -10,13 +10,16 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.impl.renderer.RendererManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.hud.InGameOverlayRenderer;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.fog.FogRenderer;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -46,10 +49,10 @@ public class Mhud implements ModInitializer {
 		CONFIG.setProperty("low_fire", "false");
 		CONFIG.setProperty("full_bright", "false");
 		CONFIG.setProperty("potion_hud", "false");
+		CONFIG.setProperty("less_particles", "false");
 
 		try (FileReader cfg_file = new FileReader("config/mhud.properties")) {
 			CONFIG.load(cfg_file);
-			LogUtils.getLogger().info("!!!!!");
 		} catch (Exception e) {
 			// e
 		}
@@ -74,6 +77,8 @@ public class Mhud implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		readCfg();
+
+
 
 		KeyBinding keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.mhud.config_screen",

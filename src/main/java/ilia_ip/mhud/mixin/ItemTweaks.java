@@ -6,8 +6,10 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.RotationAxis;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,6 +36,7 @@ public class ItemTweaks {
             Items.GOLDEN_CARROT,
             Items.CARROT,
             Items.COOKED_BEEF,
+            Items.COOKED_PORKCHOP,
             Items.BREAD,
 
             Items.TOTEM_OF_UNDYING,

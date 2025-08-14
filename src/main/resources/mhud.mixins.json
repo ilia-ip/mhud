@@ -17,6 +17,7 @@
     "LowFire",
     "NamePlateRenderer",
     "NoFog",
+    "ParticleRenderer",
     "PotionHud"
   ]
 }

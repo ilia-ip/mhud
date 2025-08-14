@@ -15,5 +15,6 @@
   "conf.mhud.no_fog": "No fog",
   "conf.mhud.low_fire": "Low fire",
   "conf.mhud.full_bright": "Fullbright",
-  "conf.mhud.potion_hud": "Potion hud"
+  "conf.mhud.potion_hud": "Potion hud",
+  "conf.mhud.less_particles": "Less particles"
 }

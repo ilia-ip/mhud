@@ -14,11 +14,10 @@ import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
-import org.apache.logging.log4j.core.appender.rolling.action.IfAll;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.Inject;
 
 import java.util.Collection;
 
@@ -102,10 +101,27 @@ public class PotionHud {
 
                     context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, InGameHud.getEffectTexture(registryEntry), x + 3, y + 3, 18, 18, ColorHelper.getWhite(f));
 
-                    if (!statusEffectInstance.isAmbient() || !Mhud.enabled("potion_hud")) context.drawText(client.textRenderer, String.valueOf(statusEffectInstance.getDuration()/20), x+4, y+13, color, true);
+                    String duration = getDurationString(statusEffectInstance);
+
+                    if (!statusEffectInstance.isAmbient() && Mhud.enabled("potion_hud")) context.drawText(client.textRenderer, duration, x+4, y+13, color, true);
                 }
             }
 
         }
+    }
+
+    @Unique
+    private static @NotNull String getDurationString(StatusEffectInstance statusEffectInstance) {
+        String duration;
+        if (statusEffectInstance.getDuration()/20 >= 60) {
+            if (statusEffectInstance.getDuration()/20/60 >= 60) {
+                duration = statusEffectInstance.getDuration()/20/60/60 + "h";
+            } else {
+                duration = statusEffectInstance.getDuration()/20/60 + "m";
+            }
+        } else {
+            duration = String.valueOf(statusEffectInstance.getDuration()/20);
+        }
+        return duration;
     }
 }
