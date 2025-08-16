@@ -7,7 +7,9 @@ import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.impl.renderer.RendererManager;
@@ -26,6 +28,7 @@ import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.io.File;
 import java.io.FileReader;
@@ -34,7 +37,10 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class Mhud implements ModInitializer {
+
 	public static final Properties CONFIG = new Properties();
+
+	public static KeyBinding ZOOM_KEYBINDING;
 
 	public static void readCfg() {
 		CONFIG.setProperty("armor_hud", "false");
@@ -78,9 +84,14 @@ public class Mhud implements ModInitializer {
 	public void onInitialize() {
 		readCfg();
 
+		ZOOM_KEYBINDING = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+				"key.mhud.zoom",
+				InputUtil.Type.KEYSYM,
+				GLFW.GLFW_MOUSE_BUTTON_5,
+				"category.mhud.keys"
+		));
 
-
-		KeyBinding keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+		KeyBinding screenKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.mhud.config_screen",
 				InputUtil.Type.KEYSYM,
 				GLFW.GLFW_KEY_MINUS,
@@ -88,7 +99,7 @@ public class Mhud implements ModInitializer {
 		));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (keyBinding.wasPressed()) {
+			if (screenKeyBinding.wasPressed()) {
 				MinecraftClient.getInstance().setScreen(new ConfigScreen());
 			}
 		});

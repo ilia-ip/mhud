@@ -19,6 +19,7 @@
     "NamePlateRenderer",
     "NoFog",
     "ParticleRenderer",
-    "PotionHud"
+    "PotionHud",
+    "Zoom"
   ]
 }

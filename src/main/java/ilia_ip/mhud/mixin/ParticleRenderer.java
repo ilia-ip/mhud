@@ -28,10 +28,7 @@ public class ParticleRenderer {
             SpellParticle.class,
             SweepAttackParticle.class,
             TotemParticle.class,
-            FlameParticle.class,
-            FireworksSparkParticle.FireworkParticle.class,
-            SculkChargeParticle.class,
-            FireflyParticle.class
+            FlameParticle.class
     );
 
     @Inject(
