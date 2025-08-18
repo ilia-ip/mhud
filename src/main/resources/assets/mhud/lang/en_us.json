@@ -2,9 +2,6 @@
   "key.mhud.config_screen": "Open config screen",
   "category.mhud.keys": "Mhud",
 
-  "conf.mhud.enabled": "Enabled",
-  "conf.mhud.disabled": "Disabled",
-
   "conf.mhud.armor_hud": "Armor hud",
   "conf.mhud.crosshair_indicator": "Crosshair indicator",
   "conf.mhud.third_person_crosshair": "Crosshair in third person view",
@@ -16,5 +13,10 @@
   "conf.mhud.low_fire": "Low fire",
   "conf.mhud.full_bright": "Fullbright",
   "conf.mhud.potion_hud": "Potion hud",
-  "conf.mhud.less_particles": "Less particles"
+  "conf.mhud.less_particles": "Less particles",
+
+  "waypoint.mhud.desc": "Description",
+  "waypoint.mhud.name": "Name",
+  "waypoint.mhud.pos": "Position",
+  "conf.mhud.title": "Mhud Configuration"
 }

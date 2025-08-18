@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.impl.renderer.RendererManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -25,6 +26,8 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.WorldEvents;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +36,7 @@ import org.spongepowered.asm.mixin.Unique;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -76,8 +80,8 @@ public class Mhud implements ModInitializer {
 		return Objects.equals(CONFIG.getOrDefault(key, "false"), "true");
 	}
 
-	public static String invert(String value) {
-		return Objects.equals(value, "true") ? "false" : "true";
+	public static void invertProperty(String key) {
+		CONFIG.setProperty(key, Objects.equals(CONFIG.getProperty(key), "true") ? "false" : "true");
 	}
 
 	@Override
@@ -95,6 +99,13 @@ public class Mhud implements ModInitializer {
 				"key.mhud.config_screen",
 				InputUtil.Type.KEYSYM,
 				GLFW.GLFW_KEY_MINUS,
+				"category.mhud.keys"
+		));
+
+		KeyBinding waypointKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+				"key.mhud.waypoint_screen",
+				InputUtil.Type.KEYSYM,
+				GLFW.GLFW_KEY_N,
 				"category.mhud.keys"
 		));
 

@@ -40,7 +40,6 @@ public class Zoom {
         } else if (ZOOM > 0 && !Mhud.ZOOM_KEYBINDING.isPressed()) {
             ZOOM -= 0.1 * ZOOM + 0.1;
         }
-        LogUtils.getLogger().info(String.valueOf(getFov(camera, tickProgress, changingFov) / (float) (1+ZOOM)));
         return getFov(camera, tickProgress, changingFov) /  (float) (1+ZOOM);
     }
 }
