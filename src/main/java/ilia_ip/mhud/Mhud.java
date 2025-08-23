@@ -1,94 +1,29 @@
 package ilia_ip.mhud;
 
-import com.mojang.blaze3d.buffers.GpuBuffer;
-import com.mojang.blaze3d.buffers.GpuBufferSlice;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.logging.LogUtils;
+import ilia_ip.mhud.config.Config;
+import ilia_ip.mhud.config.ConfigScreen;
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
-import net.fabricmc.fabric.impl.renderer.RendererManager;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.gui.hud.InGameOverlayRenderer;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.render.fog.FogRenderer;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.WorldEvents;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.spongepowered.asm.mixin.Unique;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Properties;
 
 public class Mhud implements ModInitializer {
 
-	public static final Properties CONFIG = new Properties();
+	public static boolean ZOOMING;
+	public static boolean FREELOOKING;
 
-	public static KeyBinding ZOOM_KEYBINDING;
-
-	public static void readCfg() {
-		CONFIG.setProperty("armor_hud", "false");
-		CONFIG.setProperty("crosshair_indicator", "false");
-		CONFIG.setProperty("third_person_crosshair", "false");
-		CONFIG.setProperty("small_utils", "false");
-		CONFIG.setProperty("small_items", "false");
-		CONFIG.setProperty("side_shield", "false");
-		CONFIG.setProperty("third_person_nameplate", "false");
-		CONFIG.setProperty("no_fog", "false");
-		CONFIG.setProperty("low_fire", "false");
-		CONFIG.setProperty("full_bright", "false");
-		CONFIG.setProperty("potion_hud", "false");
-		CONFIG.setProperty("less_particles", "false");
-		CONFIG.setProperty("better_subtitles", "false");
-
-		try (FileReader cfg_file = new FileReader("config/mhud.properties")) {
-			CONFIG.load(cfg_file);
-		} catch (Exception e) {
-			// e
-		}
-	}
-
-	public static void saveCfg() {
-		try (FileWriter cfg_file = new FileWriter("config/mhud.properties")) {
-			CONFIG.store(cfg_file, "Mhud Configuration");
-		} catch (Exception e) {
-			// e
-		}
-	}
-
-	public static boolean enabled(String key) {
-		return Objects.equals(CONFIG.getOrDefault(key, "false"), "true");
-	}
-
-	public static void invertProperty(String key) {
-		CONFIG.setProperty(key, Objects.equals(CONFIG.getProperty(key), "true") ? "false" : "true");
-	}
+	public static final Logger LOGGER = LogUtils.getLogger();
+	public static final Config CONFIG = Config.load();
 
 	@Override
 	public void onInitialize() {
-		readCfg();
 
-		ZOOM_KEYBINDING = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+		KeyBinding zoomKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.mhud.zoom",
 				InputUtil.Type.KEYSYM,
 				GLFW.GLFW_MOUSE_BUTTON_5,
@@ -102,10 +37,10 @@ public class Mhud implements ModInitializer {
 				"category.mhud.keys"
 		));
 
-		KeyBinding waypointKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-				"key.mhud.waypoint_screen",
+		KeyBinding freeLookKeybinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+				"key.mhud.freelook",
 				InputUtil.Type.KEYSYM,
-				GLFW.GLFW_KEY_N,
+				GLFW.GLFW_KEY_CAPS_LOCK,
 				"category.mhud.keys"
 		));
 
@@ -113,6 +48,10 @@ public class Mhud implements ModInitializer {
 			if (screenKeyBinding.wasPressed()) {
 				MinecraftClient.getInstance().setScreen(new ConfigScreen());
 			}
+
+            ZOOMING = zoomKeyBinding.isPressed();
+
+			FREELOOKING = freeLookKeybinding.isPressed();
 		});
 	}
 }

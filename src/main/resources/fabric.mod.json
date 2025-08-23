@@ -3,7 +3,7 @@
 	"id": "mhud",
 	"version": "${version}",
 	"name": "mhud",
-	"description": "lightweight custom hud mod",
+	"description": "qol mod",
 	"authors": [
 		"ilia_ip"
 	],

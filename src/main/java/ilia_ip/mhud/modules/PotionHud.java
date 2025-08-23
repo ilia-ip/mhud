@@ -1,4 +1,4 @@
-package ilia_ip.mhud.mixin;
+package ilia_ip.mhud.modules;
 
 import com.google.common.collect.Ordering;
 import ilia_ip.mhud.Mhud;
@@ -14,26 +14,28 @@ import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 
 import java.util.Collection;
 
 @Mixin(InGameHud.class)
 public class PotionHud {
-    @Unique
-    private static final MinecraftClient client = MinecraftClient.getInstance();
 
-    @Unique
-    private static final Identifier EFFECT_BACKGROUND_AMBIENT_TEXTURE = Identifier.ofVanilla("hud/effect_background_ambient");
-    @Unique
-    private static final Identifier EFFECT_BACKGROUND_TEXTURE = Identifier.ofVanilla("hud/effect_background");
+    @Final
+    @Shadow
+    private static Identifier EFFECT_BACKGROUND_AMBIENT_TEXTURE;
+
+    @Final
+    @Shadow
+    private MinecraftClient client;
+
+    @Final
+    @Shadow
+    private static Identifier EFFECT_BACKGROUND_TEXTURE;
 
     /**
-     * @author author
-     * @reason reason
+     * @author ...
+     * @reason welp
      */
     @Overwrite
     private void renderStatusEffectOverlay(DrawContext context, RenderTickCounter tickCounter) {
@@ -50,7 +52,7 @@ public class PotionHud {
                 int x, y;
 
                 if (statusEffectInstance.shouldShowIcon()) {
-                    if (Mhud.enabled("potion_hud")) {
+                    if (Mhud.CONFIG.POTION_HUD) {
                         x = 1;
                         y = context.getScaledWindowHeight() / 3;
 
@@ -103,7 +105,7 @@ public class PotionHud {
 
                     String duration = getDurationString(statusEffectInstance);
 
-                    if (!statusEffectInstance.isAmbient() && Mhud.enabled("potion_hud")) context.drawText(client.textRenderer, duration, x+4, y+13, color, true);
+                    if (!statusEffectInstance.isAmbient() && Mhud.CONFIG.POTION_HUD) context.drawText(client.textRenderer, duration, x+4, y+13, color, true);
                 }
             }
 
@@ -111,7 +113,7 @@ public class PotionHud {
     }
 
     @Unique
-    private static @NotNull String getDurationString(StatusEffectInstance statusEffectInstance) {
+    private static String getDurationString(StatusEffectInstance statusEffectInstance) {
         String duration;
         if (statusEffectInstance.getDuration()/20 >= 60) {
             if (statusEffectInstance.getDuration()/20/60 >= 60) {
