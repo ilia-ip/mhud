@@ -13,6 +13,10 @@
   "conf.mhud.full_bright": "Fullbright",
   "conf.mhud.potion_hud": "Potion hud",
   "conf.mhud.less_particles": "Less particles",
+  "conf.mhud.small_totem_pop": "Small totem pop",
+  "conf.mhud.hitbox_indicator": "Hitbox igndicator",
+  "conf.mhud.big_important_items": "Highlight valuable items",
+  "conf.mhud.despawn_timer": "Despawn timer",
 
   "conf.category.mhud.hud": "Hud",
   "conf.category.mhud.world": "World",

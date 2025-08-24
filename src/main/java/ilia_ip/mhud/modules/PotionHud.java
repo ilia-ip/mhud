@@ -2,6 +2,7 @@ package ilia_ip.mhud.modules;
 
 import com.google.common.collect.Ordering;
 import ilia_ip.mhud.Mhud;
+import ilia_ip.mhud.util.TickToTime;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -103,7 +104,7 @@ public class PotionHud {
 
                     context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, InGameHud.getEffectTexture(registryEntry), x + 3, y + 3, 18, 18, ColorHelper.getWhite(f));
 
-                    String duration = getDurationString(statusEffectInstance);
+                    String duration = TickToTime.convert(statusEffectInstance.getDuration());
 
                     if (!statusEffectInstance.isAmbient() && Mhud.CONFIG.POTION_HUD) context.drawText(client.textRenderer, duration, x+4, y+13, color, true);
                 }
@@ -112,18 +113,5 @@ public class PotionHud {
         }
     }
 
-    @Unique
-    private static String getDurationString(StatusEffectInstance statusEffectInstance) {
-        String duration;
-        if (statusEffectInstance.getDuration()/20 >= 60) {
-            if (statusEffectInstance.getDuration()/20/60 >= 60) {
-                duration = statusEffectInstance.getDuration()/20/60/60 + "h";
-            } else {
-                duration = statusEffectInstance.getDuration()/20/60 + "m";
-            }
-        } else {
-            duration = String.valueOf(statusEffectInstance.getDuration()/20);
-        }
-        return duration;
-    }
+
 }

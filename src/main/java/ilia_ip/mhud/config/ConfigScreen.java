@@ -3,6 +3,7 @@ package ilia_ip.mhud.config;
 import ilia_ip.mhud.Mhud;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -42,10 +43,10 @@ public class ConfigScreen extends Screen {
                             keyText(field.getName()),
                             (widget) -> {
 
-                                    setBool(field.getName(), !getBool(field.getName()));
+                                setBool(field.getName(), !getBool(field.getName()));
 
-                                    widget.setMessage(keyText(field.getName()));
-                                    Mhud.CONFIG.save();
+                                widget.setMessage(keyText(field.getName()));
+                                Mhud.CONFIG.save();
                             }
                     ).dimensions(x, y, 200, 20).build()
             );

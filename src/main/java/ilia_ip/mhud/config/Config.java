@@ -37,6 +37,9 @@ public class Config implements Serializable {
     @ConfigOption(category = "world", name = "no_fog")
     public boolean NO_FOG = true;
 
+    @ConfigOption(category = "world", name = "hitbox_indicator")
+    public boolean HITBOX_INDICATOR = true;
+
     @ConfigOption(category = "world", name = "full_bright")
     public boolean FULL_BRIGHT = true;
 
@@ -51,6 +54,9 @@ public class Config implements Serializable {
 
     @ConfigOption(category = "item", name = "big_important_items")
     public boolean BIG_IMPORTANT_ITEMS = true;
+
+    @ConfigOption(category = "item", name = "despawn_timer")
+    public boolean DESPAWN_TIMER = true;
 
     public void save() {
         try (FileOutputStream fileOut = new FileOutputStream("mhud.config"); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
