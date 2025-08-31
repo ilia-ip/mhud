@@ -21,7 +21,15 @@ public class ParticleRenderer {
             SweepAttackParticle.class,
             TotemParticle.class,
             FireflyParticle.class,
-            FlameParticle.class
+            FlameParticle.class,
+            WaterSuspendParticle.class
+    );
+
+    @Unique
+    private static final List<Class<? extends Particle>> NOT_ALLOWED_PARTICLES = List.of(
+            ExplosionLargeParticle.class,
+            ExplosionSmokeParticle.class,
+            BlockDustParticle.class
     );
 
     @Redirect(
@@ -29,6 +37,12 @@ public class ParticleRenderer {
             method = "renderParticles(Lnet/minecraft/client/render/Camera;FLnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/particle/ParticleTextureSheet;Ljava/util/Queue;)V"
     )
     private static void renderParticle(Particle instance, VertexConsumer vertexConsumer, Camera camera, float v) {
-        if (!Mhud.CONFIG.LESS_PARTICLES || ALLOWED_PARTICLES.contains(instance.getClass())) instance.render(vertexConsumer, camera, v);
+        if (Mhud.CONFIG.LESS_PARTICLES && NOT_ALLOWED_PARTICLES.contains(instance.getClass())) return;
+
+        if (Mhud.CONFIG.NO_PARTICLES && !ALLOWED_PARTICLES.contains(instance.getClass())) return;
+
+        instance.render(vertexConsumer, camera, v);
     }
+
+
 }

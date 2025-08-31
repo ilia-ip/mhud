@@ -12,7 +12,7 @@
     "ArmorHud",
     "BetterSubtitles",
     "FullBright",
-    "HitboxIndicator",
+    "HitboxTweaks",
     "LowFire",
     "NoFog",
     "ParticleRenderer",
@@ -22,6 +22,8 @@
     "freelook.FreelookCamera",
     "freelook.FreelookEntity",
     "item.HeldItemTweaks",
-    "item.ItemTweaks"
+    "item.ItemTweaks",
+    "waypoint.InGameHudMixin",
+    "waypoint.LocatorBarTweaks"
   ]
 }

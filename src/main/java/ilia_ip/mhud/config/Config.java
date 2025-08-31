@@ -40,8 +40,14 @@ public class Config implements Serializable {
     @ConfigOption(category = "world", name = "hitbox_indicator")
     public boolean HITBOX_INDICATOR = true;
 
+    @ConfigOption(category = "world", name = "item_hitboxes")
+    public boolean ITEM_HITBOXES = true;
+
     @ConfigOption(category = "world", name = "full_bright")
     public boolean FULL_BRIGHT = true;
+
+    @ConfigOption(category = "world", name = "no_particles")
+    public boolean NO_PARTICLES = true;
 
     @ConfigOption(category = "world", name = "less_particles")
     public boolean LESS_PARTICLES = true;

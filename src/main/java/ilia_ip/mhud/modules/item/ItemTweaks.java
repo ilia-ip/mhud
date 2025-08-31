@@ -79,7 +79,7 @@ public abstract class ItemTweaks {
 
         float offset = (float) -textRenderer.getWidth(str) / 2;
 
-        textRenderer.draw(str, offset, 0, Colors.WHITE, true, matrixStack.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+        textRenderer.draw(str, offset, 0, Colors.WHITE, true, matrixStack.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0, 15728880);
         matrixStack.pop();
     }
 }
